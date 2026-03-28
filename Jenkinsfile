@@ -36,7 +36,10 @@ pipeline {
                             $class: 'AmazonWebServicesCredentialsBinding',
                             credentialsId: 'jenkinsProd'
                         ]]) {
-                            sh 'terraform -chdir=saopaulo plan -out=tfplan'
+                            sh '''
+                                terraform -chdir=saopaulo plan -out=tfplan
+                                terraform -chdir=saopaulo apply -auto-approve tfplan
+                            '''
                         }
                     }
                 }
@@ -46,7 +49,10 @@ pipeline {
                             $class: 'AmazonWebServicesCredentialsBinding',
                             credentialsId: 'jenkinsProd'
                         ]]) {
-                            sh 'terraform -chdir=tokyo plan -out=tfplan'
+                            sh '''
+                                terraform -chdir=tokyo plan -out=tfplan
+                                terraform -chdir=tokyo apply -auto-approve tfplan
+                            '''
                         }
                     }
                 }
@@ -59,7 +65,10 @@ pipeline {
                     $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: 'jenkinsProd'
                 ]]) {
-                    sh 'terraform -chdir=interlink plan -out=tfplan'
+                    sh '''
+                        terraform -chdir=interlink plan -out=tfplan
+                        terraform -chdir=interlink apply -auto-approve tfplan
+                    '''
                 }
             }
         }
